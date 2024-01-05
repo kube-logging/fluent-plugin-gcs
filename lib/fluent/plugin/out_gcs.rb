@@ -105,21 +105,16 @@ module Fluent::Plugin
     end
 
     def start
-      begin
-        @gcs = Google::Cloud::Storage.new(
-          project: @project,
-          keyfile: @credentials,
-          retries: @client_retries,
-          timeout: @client_timeout
-        )
-        @gcs_bucket = @gcs.bucket(@bucket)
+      @gcs = Google::Cloud::Storage.new(
+        project: @project,
+        keyfile: @credentials,
+        retries: @client_retries,
+        timeout: @client_timeout
+      )
+      @gcs_bucket = @gcs.bucket(@bucket)
 
-        ensure_bucket
-        super
-      rescue => e
-        log.warn "GCS output plugin initialization error: #{e.message}"
-        log.warn "#{e.full_message()}"
-      end
+      ensure_bucket
+      super
     end
 
     def format(tag, time, record)
