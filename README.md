@@ -1,5 +1,5 @@
 # fluent-plugin-gcs
-[![Gem Version](https://badge.fury.io/rb/fluent-plugin-gcs.svg)](https://badge.fury.io/rb/fluent-plugin-gcs) [![Build Status](https://travis-ci.org/daichirata/fluent-plugin-gcs.svg?branch=master)](https://travis-ci.org/daichirata/fluent-plugin-gcs) [![Code Climate](https://codeclimate.com/github/daichirata/fluent-plugin-gcs/badges/gpa.svg)](https://codeclimate.com/github/daichirata/fluent-plugin-gcs)
+[![Gem Version](https://badge.fury.io/rb/fluent-plugin-gcs.svg)](https://badge.fury.io/rb/fluent-plugin-gcs) [![Test](https://github.com/daichirata/fluent-plugin-gcs/actions/workflows/test.yaml/badge.svg)](https://github.com/daichirata/fluent-plugin-gcs/actions/workflows/test.yaml) [![Code Climate](https://codeclimate.com/github/daichirata/fluent-plugin-gcs/badges/gpa.svg)](https://codeclimate.com/github/daichirata/fluent-plugin-gcs)
 
 Google Cloud Storage output plugin for [Fluentd](https://github.com/fluent/fluentd).
 
@@ -226,6 +226,16 @@ Use Local time instead of UTC.
 Use UTC instead of local time.
 
 And see [official Time Sliced Output article](http://docs.fluentd.org/articles/output-plugin-overview#time-sliced-output-parameters)
+
+**blind_write**
+
+Doesn't check if an object exists in GCS before writing. Default is false.
+
+Allows to avoid granting of `storage.objects.get` permission.
+
+Warning! If the object exists and `storage.objects.delete` permission is not
+granted, it will result in an unrecoverable error. Usage of `%{hex_random}` is
+recommended.
 
 ### ObjectMetadata
 
